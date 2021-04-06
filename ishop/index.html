@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="mainContainer"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <script src="MyStore.js"></script>
+    <link rel="stylesheet" type="text/css" href="MyStore.css" />
+
+    <script>
+        let storeName = 'Snickerhead';
+        let goods1 = [
+            { name: 'air max', price: 80, photoURL: 'www.airM.com', remainder: 18, id: 1 },
+            { name: 'air force', price: 90, photoURL: 'www.airF.com', remainder: 7, id: 2 },
+            { name: 'monarch', price: 50, photoURL: 'www.monar.com', remainder: 22, id: 3 },
+            { name: 'dunk low', price: 130, photoURL: 'www.dunk.com', remainder: 19, id: 4 },
+            { name: 'blazer', price: 100, photoURL: 'www.blazer.com', remainder: 3, id: 5 },
+            { name: 'M2K Tekno', price: 80, photoURL: 'www.MKtekno.com', remainder: 44, id: 6 },
+        ];
+
+        ReactDOM.render(
+            React.createElement(MyStore, { name: storeName, goods: goods1 }),
+            document.getElementById('mainContainer')
+        );
+
+    </script>
+</body>
+
+</html>
