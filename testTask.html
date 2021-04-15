@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //let map = [[1, 0, 3], [3, 1, 1], [2, 0, 1]];
+        let map = [[0, 0, 7, 0, 0, 0], [7, 0, 0, 0, 7, 0], [7, 7, 7, 7, 7, 0]];
+        //let map = [[0, 0, 7], [7, 0, 7], [0, 0, 7], [0, 7, 7], [0, 0, 0]];
+        //let map = [[0,2,3,4,1], [2,3,4,4,1], [3,4,5,6,2], [4,5,6,7,1], [6,7,8,7,1]];
+        //let map = [[0,1,1,1,0],[1,1,3,1,1],[0,1,1,1,0], [0,0,0,0,0]];
+        let visitedNodes = [];
+        let countFuel = {};
+        let cameFrom = {};
+
+        function calculateRoverPath(map) {
+
+            //назначаем каждому узлу большой вес
+            for (let i = 0; i < map.length; i++) {
+                for (let j = 0; j < map[0].length; j++) {
+                    countFuel['' + i + j] = 10000000;
+                }
+            }
+            countFuel['00'] = 0;// меняем вес первого узла на 0
+
+
+            //функция получения из обьекта ключа по значению
+            function getKeyByValue(object, value) {
+                return Object.keys(object).find(key => object[key] === value);
+            }
+
+            //алгоритм Дейкстры по поиску кратчайшего пути во взвешенном графе
+            function dijkstra(number) {
+
+                //из номера обьекта делаем номера для массива
+                let i = parseInt(number.split('')[0]);
+                let j = parseInt(number.split('')[1]);
+
+                //условие выхода из рекурсии: достигнут последний элемент
+                if (i == map.length - 1 && j == map[0].length - 1) return countFuel[`${i}${j}`];
+
+                //шаг алгоритма: подсчет веса каждой соседней точки кроме уже пройденных и уменьшение веса
+                if (i < map.length - 1 && !visitedNodes.includes(`${i + 1}${j}`)) {
+                    countFuelToNeighborOne = Math.abs(map[i][j] - map[i + 1][j]) + 1 + countFuel[`${i}${j}`];
+                    if (countFuel[`${i + 1}${j}`] > countFuelToNeighborOne) {
+                        countFuel[`${i + 1}${j}`] = countFuelToNeighborOne;
+                        cameFrom[`${i + 1}${j}`] = `${i}${j}`;
+                    }
+                }
+                if (j < map[0].length - 1 && !visitedNodes.includes(`${i}${j + 1}`)) {
+                    countFuelToNeighborTwo = Math.abs(map[i][j] - map[i][j + 1]) + 1 + countFuel[`${i}${j}`];;
+                    if (countFuel[`${i}${j + 1}`] > countFuelToNeighborTwo) {
+                        countFuel[`${i}${j + 1}`] = countFuelToNeighborTwo;
+                        cameFrom[`${i}${j + 1}`] = `${i}${j}`;
+                    }
+                }
+                if (i > 0 && !visitedNodes.includes(`${i - 1}${j}`)) {
+                    countFuelToNeighborThree = Math.abs(map[i][j] - map[i - 1][j]) + 1 + countFuel[`${i}${j}`];;
+                    if (countFuel[`${i - 1}${j}`] > countFuelToNeighborThree) {
+                        countFuel[`${i - 1}${j}`] = countFuelToNeighborThree;
+                        cameFrom[`${i - 1}${j}`] = `${i}${j}`;
+                    }
+                }
+                if (j > 0 && !visitedNodes.includes(`${i}${j - 1}`)) {
+                    countFuelToNeighborThree = Math.abs(map[i][j] - map[i][j - 1]) + 1 + countFuel[`${i}${j}`];;
+                    if (countFuel[`${i}${j - 1}`] > countFuelToNeighborThree) {
+                        countFuel[`${i}${j - 1}`] = countFuelToNeighborThree;
+                        cameFrom[`${i}${j - 1}`] = `${i}${j}`;
+                    }
+                }
+                //добвляем пройденный узел в массив посещенных и проверенных узлов
+                visitedNodes.push(`${i}${j}`);
+
+                //удаляем пройденный узел из обьекта еще не пройденных
+                delete countFuel[`${i}${j}`];
+
+                //повторяем шаг алгоритма со следующим узлом с наименьшим весом (предварительно отсортировав массив по возрастанию)
+                return dijkstra(getKeyByValue(countFuel, Object.values(countFuel).sort((a, b) => a - b)[0])); 
+
+            }
+
+            let fuelResult = dijkstra('00');
+
+            let shortestPathArr = [];
+
+            //сводим кратчайший путь в массив для удобства
+            (function createShortestPath(node) {
+                shortestPathArr.push(node);
+                if (node == '00') return;
+                let i = parseInt(node.split('')[0]);
+                let j = parseInt(node.split('')[1]);
+                createShortestPath(cameFrom[`${i}${j}`]);
+            })(cameFrom[`${map.length-1}${map[0].length-1}`])
+
+            let shortestPathStr = '';
+            shortestPathArr.reverse().forEach(element => {
+                shortestPathStr += `${element} `;
+            });
+
+            return `Obschee kolichestvo topliva: ${fuelResult}, kratchaishi put': ` + shortestPathStr + `${map.length-1}${map[0].length-1}`;
+        }
+
+        console.log(calculateRoverPath(map));
+
+    </script>
+</body>
+
+</html>
