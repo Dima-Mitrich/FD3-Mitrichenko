@@ -1,48 +1,40 @@
-let MyGoods = React.createClass({
+let MyItem = React.createClass({
 
-    displayName: 'myGoods',
+    displayName: 'myItem',
 
     propTypes: {
-        goods: React.PropTypes.array.isRequired
-    },
-
-    getInitialState: function () {
-        return {
-            goodsList: this.props.goods,
-        }
+        name: React.PropTypes.string.isRequired,
+        price: React.PropTypes.number.isRequired,
+        url: React.PropTypes.string.isRequired,
+        remainder: React.PropTypes.number.isRequired,
+        id: React.PropTypes.number.isRequired,
+        cbDeleteItem: React.PropTypes.func.isRequired,
+        cbSelectItem: React.PropTypes.func.isRequired,
     },
 
     itemSelected: function (event) {
         let id = event.target.parentElement.id;
-        this.props.cbItemSelected(id);
+        this.props.cbSelectItem(id);
     },
 
     buttonClicked: function (event) {
         event.stopPropagation();
-        let id = event.target.parentElement.parentElement.id;
-        let pos = this.state.goodsList.findIndex((elem) => elem.id == id);
-        if(confirm('are you sure?')) this.setState((currState, props) => { currState.goodsList.splice(pos, 1) });
-        else return;
+        let id = event.target.id;
+        this.props.cbDeleteItem(id);
     },
 
     render: function () {
 
-        let myGoods = [];
-        this.state.goodsList.forEach((item) => {
-            myGoods.push(React.DOM.tr({
-                key: item.id, id: item.id, onClick: this.itemSelected,
-                className: item.id == this.props.selectedItem ? 'selectedItem' : null
-            },
-                React.DOM.td(null, item.name),
-                React.DOM.td(null, item.price + '$'),
-                React.DOM.td(null,
-                    React.DOM.a({ href: item.photoURL }, item.photoURL)),
-                React.DOM.td(null, item.remainder + ' pairs'),
-                React.DOM.td(null,
-                    React.DOM.button({ type: 'button', onClick: this.buttonClicked }, 'delete'))
-            ));
-        });
-        return React.DOM.table({ className: 'MyStoreClass' },
-            React.DOM.tbody(null, myGoods))
+        return React.DOM.tr({
+            id: this.props.id, onClick: this.itemSelected, className: this.props.className
+        },
+            React.DOM.td(null, this.props.name),
+            React.DOM.td(null, this.props.price + '$'),
+            React.DOM.td(null,
+                React.DOM.a({ href: this.props.url }, this.props.url)),
+            React.DOM.td(null, this.props.remainder + ' pairs'),
+            React.DOM.td(null,
+                React.DOM.button({ type: 'button', onClick: this.buttonClicked, id: this.props.id }, 'delete'))
+        );
     }
 })
