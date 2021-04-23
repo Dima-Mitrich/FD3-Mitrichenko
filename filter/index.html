@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="mainContainer"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <script src="Filter.js"></script>
+    <link rel="stylesheet" type="text/css" href="Filter.css" />
+
+    <script>
+        let list = ['абракадабра','симсалабим','ахалаймахалай','жывебеларусь','рефрижератор', 'брофист'];
+
+        ReactDOM.render(
+            React.createElement(Filter, {list:list}), 
+            document.getElementById('mainContainer')
+        );
+    </script>
+</body>
+
+</html>
