@@ -19,8 +19,8 @@ let MyStore = React.createClass({
     },
 
     deleteItem: function (id) {
-        let pos = this.state.itemsList.findIndex((elem) => elem.id == id);
-        if (confirm('are you sure?')) this.setState((currState) => { currState.itemsList.splice(pos, 1) });
+        let arr = this.state.itemsList.filter(elem => elem.id != id);
+        if (confirm('are you sure?')) this.setState({ itemsList: arr });
     },
 
     render: function () {

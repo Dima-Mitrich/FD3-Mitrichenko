@@ -13,8 +13,7 @@ let MyItem = React.createClass({
     },
 
     itemSelected: function (event) {
-        let id = event.target.parentElement.id;
-        this.props.cbSelectItem(id);
+        this.props.cbSelectItem(this.props.id);
     },
 
     buttonClicked: function (event) {
