@@ -37,12 +37,12 @@ let Filter = React.createClass({
     },
 
     buttonWasClicked: function () {
-        this.setState(() => {return {isSorted: false, textInputValue: '', renderList: this.props.list }})
+        this.setState(() => { return { isSorted: false, textInputValue: '', renderList: this.props.list } })
     },
 
     render: function () {
 
-        let arrToRender = this.state.renderList.map(element => React.DOM.option(null, element));
+        let arrToRender = this.state.renderList.map((element, index) => React.DOM.option({ key: index }, element));
 
         return React.DOM.div({ className: 'reactContainer' },
             React.DOM.div(null,
