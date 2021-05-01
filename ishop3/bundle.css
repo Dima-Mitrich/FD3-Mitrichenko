@@ -1,0 +1,12 @@
+.MyStoreClass tr td {
+    border: 1px solid black;
+}
+
+.MyStoreClass {
+    border-collapse: collapse;
+}
+
+.selectedItem {
+    background-color: aqua;
+}
+/*# sourceMappingURL=bundle.css.map*/

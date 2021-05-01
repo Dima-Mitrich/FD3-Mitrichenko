@@ -1,0 +1,18 @@
+{
+  "name": "ishop",
+  "version": "1.0.0",
+  "description": "myProject",
+  "main": "MyStore.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": ".\\node_modules\\.bin\\lite-server"
+  },
+  "author": "Mitrichenko",
+  "license": "ISC",
+  "dependencies": {
+    "lite-server": "^2.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.36.1"
+  }
+}
