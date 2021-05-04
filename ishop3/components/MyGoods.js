@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import DOM from 'react-dom-factories';
 
 class MyItem extends React.Component {
 
@@ -18,15 +17,19 @@ class MyItem extends React.Component {
         this.props.cbSelectItem(this.props.id);
     }
 
-    buttonClicked = (event) => {
+    deleteButtonClicked = (event) => {
         event.stopPropagation();
-        let id = event.target.id;
-        this.props.cbDeleteItem(id);
+        this.props.cbDeleteItem(this.props.id);
+    }
+
+    editButtonClicked = (event) => {
+        event.stopPropagation();
+        this.props.cbEditItem(this.props.id);
     }
 
     render() {
         return (
-            <tr id={this.props.id} onClick={this.itemSelected} className={this.props.className}>
+            <tr id={this.props.id} onClick={this.props.editNow ? null : this.itemSelected} className={this.props.className}>
                 <td>{this.props.name}</td>
                 <td>{this.props.price + '$'}</td>
                 <td>
@@ -34,9 +37,12 @@ class MyItem extends React.Component {
                 </td>
                 <td>{this.props.remainder + ' pairs'}</td>
                 <td>
-                    <button type='button' onClick={this.buttonClicked} id={this.props.id}>delete</button>
+                    <button disabled={this.props.editNow} type='button' onClick={this.deleteButtonClicked}
+                        id={this.props.id}>delete</button>
+                    <button disabled={this.props.editNow} type='button' onClick={this.editButtonClicked}>edit</button>
                 </td>
             </tr>
+
         );
     }
 }
