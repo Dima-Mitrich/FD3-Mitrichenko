@@ -11,6 +11,10 @@ class ItemList extends React.Component {
         mode: PropTypes.string.isRequired,
         name: PropTypes.string,
         url: PropTypes.string,
+        cbSaveChanges: PropTypes.func.isRequired,
+        cbItemWasCreated: PropTypes.func.isRequired,
+        cbItemWasChanged: PropTypes.func.isRequired,
+        cbCancelChanges: PropTypes.func.isRequired,
     }
 
     state = {
@@ -18,7 +22,6 @@ class ItemList extends React.Component {
         price: this.props.price,
         url: this.props.url,
         remainder: this.props.remainder,
-        mode: this.props.mode,
         isNameIrrelevant: false,
         isPriceIrrelevant: false,
         isUrlIrrelevant: false,
@@ -161,7 +164,7 @@ class ItemList extends React.Component {
                     }
                     <br />
 
-                    <button onClick={this.state.mode == 'edit' ? this.saveChanges : this.saveNewItem}
+                    <button onClick={this.props.mode == 'edit' ? this.saveChanges : this.saveNewItem}
                         disabled={this.state.isNameIrrelevant || this.state.isPriceIrrelevant ||
                             this.state.isRemainderIrrelevant || this.state.isUrlIrrelevant ||
                             !this.state.isEditing}>Save</button>

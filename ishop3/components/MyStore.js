@@ -41,7 +41,7 @@ class MyStore extends React.Component {
         this.setState(() => {
             return {
                 selectedItem: item,
-                mode: 'edit'
+                mode: 'edit',
             }
         })
     }
