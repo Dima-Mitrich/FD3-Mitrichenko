@@ -11,15 +11,16 @@ class RainbowFrame extends React.Component {
 
     render() {
 
-        let arr = [];
-        for (let i = 0; i < this.props.colors.length - 1; i++) {
-            let div = <div style={{ border: `solid 4px ${this.props.colors[i]}`, padding: '10px' }}
-                children={arr[i - 1] || this.props.children} />
-            arr.push(div);
+        let div = <div style={{ border: `solid 4px ${this.props.colors[this.props.colors.length - 1]}`, padding: '10px' }}
+        children={this.props.children} />
+
+        for (let i = this.props.colors.length - 2; i >= 0; i--) {
+            div = <div style={{ border: `solid 4px ${this.props.colors[i]}`, padding: '10px' }}
+            children={div} />
         }
 
         return (
-            arr[arr.length - 1]
+            div
         );
     }
 
