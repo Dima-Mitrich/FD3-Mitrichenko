@@ -11,16 +11,14 @@ class RainbowFrame extends React.Component {
 
     render() {
 
-        let div = <div style={{ border: `solid 4px ${this.props.colors[this.props.colors.length - 1]}`, padding: '10px' }}>
-            {this.props.children}
-        </div>
-
-        for (let i = this.props.colors.length - 2; i >= 0; i--) {
-            div = <div style={{ border: `solid 4px ${this.props.colors[i]}`, padding: '10px' }}> {div} </div>
-        }
+        let code = this.props.children;
+        this.props.colors.forEach(color =>
+            code = <div style={{ border: `solid 4px ${color}`, padding: '10px' }}>
+                {code}
+            </div>)
 
         return (
-            div
+            code
         );
     }
 
