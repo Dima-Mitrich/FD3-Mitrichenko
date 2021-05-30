@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Client from './Client';
 import { mobileEvents } from './event';
 
@@ -106,7 +107,7 @@ class AbonentsContainer extends React.PureComponent {
         console.log('clients render')
 
         let currArr = this.state.currentClients.map((elem, index) =>
-            <Client clientInfo={elem} key={index} />)
+            <Client clientInfo={elem} key={elem.id} />)
 
         return (
             <div>
