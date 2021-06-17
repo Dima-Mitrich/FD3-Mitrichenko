@@ -7,7 +7,7 @@ class Scales {
         this.products = [];
     }
 
-    add(newProduct:Product) {
+    add(newProduct:Product):void {
         this.products.push(newProduct);
     }
 
